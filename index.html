@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khusheyy | Space Explorer & Developer</title>
+    <title>Khusheyy | Matrix Developer & Space Explorer</title>
     <style>
         * {
             margin: 0;
@@ -14,74 +14,32 @@
         body {
             font-family: 'Courier New', monospace;
             background: #000;
-            color: #fff;
+            color: #00ff00;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Black Hole Animation */
-        .black-hole {
+        /* Black Hole Simulation Canvas */
+        #blackhole-canvas {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, transparent 30%, #000 31%, #1a0033 40%, #4a0e4e 60%, #ff6b35 100%);
-            transform: translate(-50%, -50%);
-            animation: rotate 20s linear infinite, pulse 3s ease-in-out infinite alternate;
-            z-index: -1;
-            opacity: 0.7;
-        }
-
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            from { transform: translate(-50%, -50%) scale(1); }
-            to { transform: translate(-50%, -50%) scale(1.1); }
-        }
-
-        /* Stars Background */
-        .stars {
-            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
-            z-index: -2;
+            z-index: -10;
+            background: #000;
         }
 
-        .stars::before, .stars::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 
-                100px 200px #fff,
-                300px 100px #fff,
-                500px 300px #fff,
-                700px 150px #fff,
-                900px 250px #fff,
-                1100px 50px #fff,
-                1300px 350px #fff,
-                200px 400px #fff,
-                400px 50px #fff,
-                600px 400px #fff,
-                800px 350px #fff,
-                1000px 100px #fff,
-                1200px 300px #fff,
-                150px 150px #fff,
-                350px 350px #fff;
-            animation: twinkle 2s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            from { opacity: 0.3; }
-            to { opacity: 1; }
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            opacity: 0.1;
+            pointer-events: none;
         }
 
         /* Header */
@@ -93,7 +51,7 @@
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             z-index: 1000;
-            border-bottom: 1px solid #ff6b35;
+            border-bottom: 1px solid #00ff00;
         }
 
         nav ul {
@@ -104,19 +62,34 @@
         }
 
         nav a {
-            color: #fff;
+            color: #00ff00;
             text-decoration: none;
             padding: 0.5rem 1rem;
             border: 1px solid transparent;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::before {
+            width: 100%;
         }
 
         nav a:hover {
-            border-color: #ff6b35;
-            background: rgba(255, 107, 53, 0.1);
-            transform: translateY(-2px);
+            border-color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
         }
 
         /* Main Content */
@@ -126,38 +99,62 @@
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
 
         section {
             margin-bottom: 4rem;
             padding: 2rem;
-            border: 1px solid #333;
+            border: 1px solid #003300;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         }
 
         h1, h2 {
-            color: #ff6b35;
+            color: #00ff00;
             margin-bottom: 1rem;
             text-align: center;
         }
 
         h1 {
             font-size: 3rem;
-            text-shadow: 0 0 20px #ff6b35;
-            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px #00ff00;
+            animation: matrix-glow 2s ease-in-out infinite alternate;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #ff6b35; }
-            to { text-shadow: 0 0 30px #ff6b35, 0 0 40px #ff6b35; }
+        @keyframes matrix-glow {
+            from { 
+                text-shadow: 0 0 20px #00ff00;
+                color: #00ff00;
+            }
+            to { 
+                text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00;
+                color: #00ff41;
+            }
         }
 
         h2 {
             font-size: 2rem;
-            border-bottom: 2px solid #ff6b35;
+            border-bottom: 2px solid #00ff00;
             padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff41;
+            animation: line-expand 2s ease-out forwards;
+        }
+
+        @keyframes line-expand {
+            to { width: 100%; }
         }
 
         .hero {
@@ -168,11 +165,21 @@
         .quote {
             font-style: italic;
             font-size: 1.2rem;
-            color: #ccc;
+            color: #00cc00;
             margin: 2rem 0;
             text-align: center;
-            border-left: 3px solid #ff6b35;
+            border-left: 3px solid #00ff00;
             padding-left: 1rem;
+            animation: typing 3s steps(60) 1s forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes typing {
+            to { width: 100%; }
         }
 
         .grid {
@@ -183,16 +190,47 @@
         }
 
         .card {
-            background: rgba(255, 107, 53, 0.1);
-            border: 1px solid #ff6b35;
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #00ff00;
             border-radius: 10px;
             padding: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transform: rotate(0deg);
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover::before {
+            transform: rotate(180deg);
         }
 
         .card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+            border-color: #00ff41;
+        }
+
+        .project-link {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted #00ff00;
+        }
+
+        .project-link:hover {
+            color: #00ff41;
+            text-shadow: 0 0 5px #00ff00;
         }
 
         .tech-stack {
@@ -203,12 +241,22 @@
         }
 
         .tech {
-            background: #ff6b35;
+            background: #00ff00;
             color: #000;
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: bold;
+            animation: tech-pulse 2s infinite;
+        }
+
+        .tech:nth-child(even) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes tech-pulse {
+            0%, 100% { background: #00ff00; }
+            50% { background: #00cc00; }
         }
 
         .cta {
@@ -218,7 +266,7 @@
 
         .btn {
             display: inline-block;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            background: linear-gradient(45deg, #00ff00, #00cc00);
             color: #000;
             padding: 1rem 2rem;
             text-decoration: none;
@@ -229,26 +277,57 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.4);
         }
 
         footer {
             text-align: center;
             padding: 2rem;
-            border-top: 1px solid #333;
+            border-top: 1px solid #003300;
             margin-top: 4rem;
         }
 
+        .matrix-text {
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+        }
+
+        .repo-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #00cc00;
+        }
+
+        .star {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
         @media (max-width: 768px) {
-            .black-hole {
-                width: 200px;
-                height: 200px;
-            }
-            
             h1 {
                 font-size: 2rem;
             }
@@ -261,141 +340,383 @@
             main {
                 padding: 1rem;
             }
+
+            .quote {
+                white-space: normal;
+                width: auto;
+                animation: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="black-hole"></div>
+    <canvas id="blackhole-canvas"></canvas>
+    <canvas class="matrix-bg" id="matrix-canvas"></canvas>
 
     <header>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home">./home</a></li>
+                <li><a href="#about">./about</a></li>
+                <li><a href="#projects">./projects</a></li>
+                <li><a href="#skills">./skills</a></li>
+                <li><a href="#contact">./contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <h1>KHUSHEYY</h1>
-            <p class="quote">"The biggest risk is not taking any risk... In a world that's changing really quickly, the only strategy that is guaranteed to fail is not taking risks."</p>
-            <p style="font-size: 1.3rem; margin-top: 2rem;">Space Explorer • Code Architect • Future Builder</p>
+            <h1 class="matrix-text">KHUSHEYY.EXE</h1>
+            <p class="quote">"The Matrix is everywhere. It is all around us... it is the code that defines our reality."</p>
+            <p style="font-size: 1.3rem; margin-top: 2rem; color: #00cc00;">Matrix Navigator • Code Architect • Digital Rebel</p>
         </section>
 
         <section id="about">
-            <h2>Mission Control</h2>
+            <h2>System Information</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>🚀 Vision</h3>
-                    <p>Like Elon Musk revolutionizing space travel, I'm passionate about pushing the boundaries of technology. Every line of code I write is a step toward making the impossible possible.</p>
+                    <h3>🔋 Core Protocol</h3>
+                    <p>Like Neo breaking free from the Matrix, I navigate through layers of code to uncover hidden truths and build revolutionary solutions that challenge the status quo.</p>
                 </div>
                 <div class="card">
-                    <h3>🌌 Philosophy</h3>
-                    <p>Just as black holes warp spacetime, I believe great code can bend reality. I approach problems with the same relentless curiosity that drives SpaceX to Mars.</p>
+                    <h3>🌌 Quantum Processing</h3>
+                    <p>In the infinite expanse of cyberspace, I harness the power of black holes to bend digital reality, creating applications that defy conventional limitations.</p>
                 </div>
                 <div class="card">
-                    <h3>⚡ Innovation</h3>
-                    <p>Inspired by Tesla's electric revolution, I focus on sustainable, efficient solutions that accelerate human progress through technology.</p>
+                    <h3>⚡ Neural Network</h3>
+                    <p>Connecting minds across the digital realm, I architect systems that learn, adapt, and evolve - pushing humanity toward a more connected future.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>Launch Pad</h2>
+            <h2>Active Repositories</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>🛰️ Project Starlink</h3>
-                    <p>A distributed web application that connects developers globally, featuring real-time collaboration and AI-powered code suggestions.</p>
-                    <div class="tech-stack">
-                        <span class="tech">React</span>
-                        <span class="tech">Node.js</span>
-                        <span class="tech">WebRTC</span>
-                        <span class="tech">AI/ML</span>
+                    <h3>🐍 Python Universe</h3>
+                    <p>Exploring the depths of Python programming with advanced algorithms, data structures, and machine learning implementations.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ Active Development</span>
+                        <a href="https://github.com/Khusheyy/PYTHON" class="project-link" target="_blank">View Code</a>
                     </div>
-                </div>
-                <div class="card">
-                    <h3>🔋 Tesla Grid</h3>
-                    <p>An energy management system that optimizes resource allocation using machine learning algorithms and predictive analytics.</p>
                     <div class="tech-stack">
                         <span class="tech">Python</span>
-                        <span class="tech">TensorFlow</span>
-                        <span class="tech">Docker</span>
-                        <span class="tech">Kubernetes</span>
+                        <span class="tech">NumPy</span>
+                        <span class="tech">Pandas</span>
+                        <span class="tech">Scikit-learn</span>
                     </div>
                 </div>
+                
                 <div class="card">
-                    <h3>🧠 Neuralink Interface</h3>
-                    <p>A brain-computer interface simulation using advanced neural networks to interpret and respond to human thought patterns.</p>
+                    <h3>☕ Java DSA Matrix</h3>
+                    <p>Comprehensive collection of Data Structures and Algorithms implemented in Java, featuring optimized solutions and complexity analysis.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ Latest</span>
+                        <a href="https://github.com/Khusheyy/JAVA-DSA" class="project-link" target="_blank">Explore Code</a>
+                    </div>
                     <div class="tech-stack">
-                        <span class="tech">PyTorch</span>
+                        <span class="tech">Java</span>
+                        <span class="tech">Algorithms</span>
+                        <span class="tech">Data Structures</span>
+                        <span class="tech">Problem Solving</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🖼️ Image ASCII Converter</h3>
+                    <p>Transform images into ASCII art using advanced image processing techniques and character mapping algorithms.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ 1 Star</span>
+                        <a href="https://github.com/Khusheyy/image_to_ascii" class="project-link" target="_blank">View Project</a>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech">Python</span>
+                        <span class="tech">PIL</span>
                         <span class="tech">OpenCV</span>
-                        <span class="tech">WebGL</span>
-                        <span class="tech">Three.js</span>
+                        <span class="tech">ASCII Art</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💬 Quote Management System</h3>
+                    <p>Full-stack application for managing inspirational quotes with user authentication and real-time updates.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ Full Stack</span>
+                        <a href="https://github.com/Khusheyy/quote-management" class="project-link" target="_blank">Live Demo</a>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech">TypeScript</span>
+                        <span class="tech">React</span>
+                        <span class="tech">Node.js</span>
+                        <span class="tech">MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🏨 Hotel Management System</h3>
+                    <p>Comprehensive hotel management solution with booking system, customer management, and real-time availability tracking.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ Enterprise</span>
+                        <a href="https://github.com/Khusheyy/hotel_management" class="project-link" target="_blank">View System</a>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech">C++</span>
+                        <span class="tech">OOP</span>
+                        <span class="tech">File I/O</span>
+                        <span class="tech">Database</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🤖 ML Practice Lab</h3>
+                    <p>Machine learning experiments and model implementations using various algorithms and frameworks for real-world problems.</p>
+                    <div class="repo-stats">
+                        <span class="star">⭐ Research</span>
+                        <a href="https://github.com/Khusheyy/ml-practice" class="project-link" target="_blank">Explore Models</a>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech">Jupyter</span>
+                        <span class="tech">TensorFlow</span>
+                        <span class="tech">PyTorch</span>
+                        <span class="tech">ML/AI</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="skills">
-            <h2>Technology Arsenal</h2>
+            <h2>Technology Matrix</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>🌐 Frontend Universe</h3>
+                    <h3>🌐 Frontend Protocols</h3>
                     <div class="tech-stack">
+                        <span class="tech">HTML5</span>
+                        <span class="tech">CSS3</span>
+                        <span class="tech">JavaScript</span>
+                        <span class="tech">TypeScript</span>
                         <span class="tech">React</span>
                         <span class="tech">Vue.js</span>
-                        <span class="tech">TypeScript</span>
-                        <span class="tech">Three.js</span>
-                        <span class="tech">WebGL</span>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>⚙️ Backend Galaxy</h3>
+                    <h3>⚙️ Backend Systems</h3>
                     <div class="tech-stack">
-                        <span class="tech">Node.js</span>
                         <span class="tech">Python</span>
-                        <span class="tech">Go</span>
-                        <span class="tech">PostgreSQL</span>
-                        <span class="tech">Redis</span>
+                        <span class="tech">Java</span>
+                        <span class="tech">C++</span>
+                        <span class="tech">Node.js</span>
+                        <span class="tech">Express</span>
+                        <span class="tech">Django</span>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>☁️ Cloud Constellation</h3>
+                    <h3>🗄️ Database Layers</h3>
                     <div class="tech-stack">
-                        <span class="tech">AWS</span>
-                        <span class="tech">Docker</span>
-                        <span class="tech">Kubernetes</span>
-                        <span class="tech">Terraform</span>
-                        <span class="tech">CI/CD</span>
+                        <span class="tech">MongoDB</span>
+                        <span class="tech">PostgreSQL</span>
+                        <span class="tech">MySQL</span>
+                        <span class="tech">Redis</span>
+                        <span class="tech">Firebase</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>🤖 AI/ML Arsenal</h3>
+                    <div class="tech-stack">
+                        <span class="tech">TensorFlow</span>
+                        <span class="tech">PyTorch</span>
+                        <span class="tech">Scikit-learn</span>
+                        <span class="tech">Jupyter</span>
+                        <span class="tech">NumPy</span>
+                        <span class="tech">Pandas</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="contact">
-            <h2>Mission Briefing</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">Ready to build the future together? Let's connect and create something extraordinary.</p>
+            <h2>Establish Connection</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; color: #00cc00;">Ready to jack into the Matrix together? Let's build the future, one line of code at a time.</p>
             <div class="cta">
-                <a href="mailto:khusheyy18@gmail.com" class="btn">Initiate Contact</a>
+                <a href="mailto:khusheyy18@gmail.com" class="btn">Initialize Protocol</a>
             </div>
             <div style="text-align: center; margin-top: 2rem;">
                 <p>📧 khusheyy18@gmail.com</p>
-                <p>🌐 Available for interstellar collaborations</p>
+                <p>🔗 <a href="https://github.com/Khusheyy" class="project-link" target="_blank">GitHub Profile</a></p>
+                <p>🌐 Available for digital collaborations across all dimensions</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Khusheyy | Powered by Dreams & Rocket Fuel 🚀</p>
-        <p style="font-style: italic; margin-top: 1rem;">"When something is important enough, you do it even if the odds are not in your favor." - Elon Musk</p>
+        <p>&copy; 2025 Khusheyy | Powered by Green Code & Black Hole Energy 🕳️</p>
+        <p style="font-style: italic; margin-top: 1rem; color: #00cc00;">"There is no spoon. There is only code." - The Matrix</p>
     </footer>
 
     <script>
+        // Black Hole Simulation
+        const canvas = document.getElementById('blackhole-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        class Particle {
+            constructor() {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 400 + 200;
+                this.x = centerX + Math.cos(angle) * distance;
+                this.y = centerY + Math.sin(angle) * distance;
+                this.vx = 0;
+                this.vy = 0;
+                this.life = 1;
+                this.trails = [];
+            }
+            
+            update() {
+                const dx = centerX - this.x;
+                const dy = centerY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 5) {
+                    const force = 0.5 / (distance * 0.01);
+                    this.vx += (dx / distance) * force;
+                    this.vy += (dy / distance) * force;
+                    
+                    // Add orbital motion
+                    this.vx += -dy * 0.0005;
+                    this.vy += dx * 0.0005;
+                    
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    this.vx *= 0.99;
+                    this.vy *= 0.99;
+                    
+                    // Add to trails
+                    this.trails.push({ x: this.x, y: this.y });
+                    if (this.trails.length > 20) {
+                        this.trails.shift();
+                    }
+                } else {
+                    // Respawn
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 400 + 200;
+                    this.x = centerX + Math.cos(angle) * distance;
+                    this.y = centerY + Math.sin(angle) * distance;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.trails = [];
+                }
+            }
+            
+            draw() {
+                // Draw trails
+                for (let i = 0; i < this.trails.length; i++) {
+                    const alpha = i / this.trails.length * 0.5;
+                    ctx.globalAlpha = alpha;
+                    ctx.fillStyle = '#00ff00';
+                    ctx.fillRect(this.trails[i].x, this.trails[i].y, 1, 1);
+                }
+                
+                // Draw particle
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = '#00ff00';
+                ctx.fillRect(this.x, this.y, 2, 2);
+            }
+        }
+        
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+        
+        function drawBlackHole() {
+            // Event horizon
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 50);
+            gradient.addColorStop(0, 'rgba(0, 0, 0, 1)');
+            gradient.addColorStop(0.7, 'rgba(0, 0, 0, 0.8)');
+            gradient.addColorStop(1, 'rgba(0, 255, 0, 0.1)');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 50, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Accretion disk glow
+            const diskGradient = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, 150);
+            diskGradient.addColorStop(0, 'rgba(0, 255, 0, 0.3)');
+            diskGradient.addColorStop(0.5, 'rgba(0, 150, 0, 0.1)');
+            diskGradient.addColorStop(1, 'rgba(0, 50, 0, 0.05)');
+            
+            ctx.fillStyle = diskGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 150, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            drawBlackHole();
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Matrix Rain Effect
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        
+        const matrixChars = '01';
+        const fontSize = 10;
+        const columns = matrixCanvas.width / fontSize;
+        const drops = [];
+        
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            
+            matrixCtx.fillStyle = '#00ff00';
+            matrixCtx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        // Resize handlers
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        });
+        
         // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -404,35 +725,6 @@
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        // Add floating particles effect
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.position = 'fixed';
-            particle.style.width = '2px';
-            particle.style.height = '2px';
-            particle.style.background = '#ff6b35';
-            particle.style.borderRadius = '50%';
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = window.innerHeight + 'px';
-            particle.style.zIndex = '-1';
-            particle.style.pointerEvents = 'none';
-            
-            document.body.appendChild(particle);
-            
-            const animation = particle.animate([
-                { transform: 'translateY(0px)', opacity: 1 },
-                { transform: 'translateY(-' + window.innerHeight + 'px)', opacity: 0 }
-            ], {
-                duration: 3000 + Math.random() * 2000,
-                easing: 'linear'
-            });
-            
-            animation.onfinish = () => particle.remove();
-        }
-
-        // Create particles periodically
-        setInterval(createParticle, 300);
     </script>
 </body>
 </html>
